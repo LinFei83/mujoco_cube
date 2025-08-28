@@ -1,4 +1,4 @@
-# MuJoCo 3x3x3 Puzzle Cube
+# MuJoCo 3x3x3 魔方
 
 [![build][tests-badge]][tests]
 [![build][mujoco-version]][MuJoCo]
@@ -7,38 +7,38 @@
 [tests]: https://github.com/kevinzakka/mujoco_cube/actions/workflows/ci.yml
 [mujoco-version]: https://img.shields.io/badge/MuJoCo-v2.3.3-blue
 
-[MuJoCo] model of a 3x3x3 puzzle cube, along with a script to procedurally generate it. Inspired by the [Rubik's Cube].
+[MuJoCo] 3x3x3 魔方的模型，以及用于程序生成它的脚本。受 [Rubik's Cube] 启发。
 
 <p float="left">
   <img src="cube3x3x3.gif" width="400">
 </p>
 
-## Requirements
+## 要求
 
-You will need MuJoCo version 2.3.3 or greater to run the model. If you want to use an older version, replace the `implicitfast` integrator with `Euler`.
+您需要 MuJoCo 版本 2.3.3 或更高以运行模型。如果您想使用较旧版本，请将 `implicitfast` 积分器替换为 `Euler`。
 
-## Play with the model
+## 使用模型
 
-Just drag and drop the `cube_3x3x3.xml` file into the simulate window.
+只需将 `cube_3x3x3.xml` 文件拖放到模拟窗口中。
 
-## Generate the model
+## 生成模型
 
-First install the dependencies:
+首先安装依赖项：
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Then run the following to generate the assets and XML file:
+然后运行以下命令来生成资产和 XML 文件：
 
 ```bash
-python build_textures.py  # Creates the assets/ dir.
-python build_mjcf.py  # Creates cube_3x3x3.xml.
+python build_textures.py  # 创建 assets/ 目录。
+python build_mjcf.py  # 创建 cube_3x3x3.xml。
 ```
 
-## Cubelet design
+## 魔块设计
 
-Solidworks was used to design `cubelet.stl`. It has a dimension of 1.9 cm with chamfered edges of length 1.425 mm. The cube was exported as an STL file and processed with `process_mesh.py` to obtain the vertices for the `mesh` attribute in the MJCF file.
+使用 Solidworks 设计了 `cubelet.stl`。它的大小为 1.9 cm，具有 1.425 mm 的倒角边。魔方被导出为 STL 文件，并通过 `process_mesh.py` 处理以获取 MJCF 文件中 `mesh` 属性所需的顶点。
 
 [MuJoCo]: https://github.com/deepmind/mujoco
 [Rubik's Cube]: https://en.wikipedia.org/wiki/Rubik%27s_Cube
