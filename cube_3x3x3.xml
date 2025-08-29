@@ -1,5 +1,5 @@
 <mujoco model="Cube 3x3x3">
-  <compiler autolimits="true" angle="radian" texturedir="assets"/>
+  <compiler autolimits="true" coordinate="local" angle="radian" texturedir="assets" meshdir="assets"/>
   <option timestep="0.01" integrator="implicitfast"/>
   <size memory="600K"/>
   <visual>
@@ -20,33 +20,33 @@
   </default>
   <asset>
     <texture type="skybox" builtin="gradient" width="512" height="512"/>
-    <texture file="white.png" gridsize="3 4" gridlayout=".....F......" rgb1="0 0 0"/>
-    <texture file="yellow.png" gridsize="3 4" gridlayout=".....B......" rgb1="0 0 0"/>
-    <texture file="red.png" gridsize="3 4" gridlayout=".....D......" rgb1="0 0 0"/>
-    <texture file="orange.png" gridsize="3 4" gridlayout=".....U......" rgb1="0 0 0"/>
-    <texture file="blue.png" gridsize="3 4" gridlayout=".....R......" rgb1="0 0 0"/>
-    <texture file="green.png" gridsize="3 4" gridlayout=".....L......" rgb1="0 0 0"/>
-    <texture file="red_white.png" gridsize="3 4" gridlayout=".....DF....." rgb1="0 0 0"/>
-    <texture file="orange_white.png" gridsize="3 4" gridlayout=".....UF....." rgb1="0 0 0"/>
-    <texture file="blue_white.png" gridsize="3 4" gridlayout=".....RF....." rgb1="0 0 0"/>
-    <texture file="green_white.png" gridsize="3 4" gridlayout=".....LF....." rgb1="0 0 0"/>
-    <texture file="red_yellow.png" gridsize="3 4" gridlayout=".....DB....." rgb1="0 0 0"/>
-    <texture file="orange_yellow.png" gridsize="3 4" gridlayout=".....UB....." rgb1="0 0 0"/>
-    <texture file="blue_yellow.png" gridsize="3 4" gridlayout=".....RB....." rgb1="0 0 0"/>
-    <texture file="green_yellow.png" gridsize="3 4" gridlayout=".....LB....." rgb1="0 0 0"/>
-    <texture file="orange_red.png" gridsize="3 4" gridlayout=".....UD....." rgb1="0 0 0"/>
-    <texture file="blue_red.png" gridsize="3 4" gridlayout=".....RD....." rgb1="0 0 0"/>
-    <texture file="green_red.png" gridsize="3 4" gridlayout=".....LD....." rgb1="0 0 0"/>
-    <texture file="blue_orange.png" gridsize="3 4" gridlayout=".....RU....." rgb1="0 0 0"/>
-    <texture file="green_orange.png" gridsize="3 4" gridlayout=".....LU....." rgb1="0 0 0"/>
-    <texture file="blue_red_white.png" gridsize="3 4" gridlayout=".....RDF...." rgb1="0 0 0"/>
-    <texture file="green_red_white.png" gridsize="3 4" gridlayout=".....LDF...." rgb1="0 0 0"/>
-    <texture file="blue_orange_white.png" gridsize="3 4" gridlayout=".....RUF...." rgb1="0 0 0"/>
-    <texture file="green_orange_white.png" gridsize="3 4" gridlayout=".....LUF...." rgb1="0 0 0"/>
-    <texture file="blue_red_yellow.png" gridsize="3 4" gridlayout=".....RDB...." rgb1="0 0 0"/>
-    <texture file="green_red_yellow.png" gridsize="3 4" gridlayout=".....LDB...." rgb1="0 0 0"/>
-    <texture file="blue_orange_yellow.png" gridsize="3 4" gridlayout=".....RUB...." rgb1="0 0 0"/>
-    <texture file="green_orange_yellow.png" gridsize="3 4" gridlayout=".....LUB...." rgb1="0 0 0"/>
+    <texture name="white" file="white.png" gridsize="3 4" gridlayout=".....F......" rgb1="0 0 0"/>
+    <texture name="yellow" file="yellow.png" gridsize="3 4" gridlayout=".....B......" rgb1="0 0 0"/>
+    <texture name="red" file="red.png" gridsize="3 4" gridlayout=".....D......" rgb1="0 0 0"/>
+    <texture name="orange" file="orange.png" gridsize="3 4" gridlayout=".....U......" rgb1="0 0 0"/>
+    <texture name="blue" file="blue.png" gridsize="3 4" gridlayout=".....R......" rgb1="0 0 0"/>
+    <texture name="green" file="green.png" gridsize="3 4" gridlayout=".....L......" rgb1="0 0 0"/>
+    <texture name="red_white" file="red_white.png" gridsize="3 4" gridlayout=".....DF....." rgb1="0 0 0"/>
+    <texture name="orange_white" file="orange_white.png" gridsize="3 4" gridlayout=".....UF....." rgb1="0 0 0"/>
+    <texture name="blue_white" file="blue_white.png" gridsize="3 4" gridlayout=".....RF....." rgb1="0 0 0"/>
+    <texture name="green_white" file="green_white.png" gridsize="3 4" gridlayout=".....LF....." rgb1="0 0 0"/>
+    <texture name="red_yellow" file="red_yellow.png" gridsize="3 4" gridlayout=".....DB....." rgb1="0 0 0"/>
+    <texture name="orange_yellow" file="orange_yellow.png" gridsize="3 4" gridlayout=".....UB....." rgb1="0 0 0"/>
+    <texture name="blue_yellow" file="blue_yellow.png" gridsize="3 4" gridlayout=".....RB....." rgb1="0 0 0"/>
+    <texture name="green_yellow" file="green_yellow.png" gridsize="3 4" gridlayout=".....LB....." rgb1="0 0 0"/>
+    <texture name="orange_red" file="orange_red.png" gridsize="3 4" gridlayout=".....UD....." rgb1="0 0 0"/>
+    <texture name="blue_red" file="blue_red.png" gridsize="3 4" gridlayout=".....RD....." rgb1="0 0 0"/>
+    <texture name="green_red" file="green_red.png" gridsize="3 4" gridlayout=".....LD....." rgb1="0 0 0"/>
+    <texture name="blue_orange" file="blue_orange.png" gridsize="3 4" gridlayout=".....RU....." rgb1="0 0 0"/>
+    <texture name="green_orange" file="green_orange.png" gridsize="3 4" gridlayout=".....LU....." rgb1="0 0 0"/>
+    <texture name="blue_red_white" file="blue_red_white.png" gridsize="3 4" gridlayout=".....RDF...." rgb1="0 0 0"/>
+    <texture name="green_red_white" file="green_red_white.png" gridsize="3 4" gridlayout=".....LDF...." rgb1="0 0 0"/>
+    <texture name="blue_orange_white" file="blue_orange_white.png" gridsize="3 4" gridlayout=".....RUF...." rgb1="0 0 0"/>
+    <texture name="green_orange_white" file="green_orange_white.png" gridsize="3 4" gridlayout=".....LUF...." rgb1="0 0 0"/>
+    <texture name="blue_red_yellow" file="blue_red_yellow.png" gridsize="3 4" gridlayout=".....RDB...." rgb1="0 0 0"/>
+    <texture name="green_red_yellow" file="green_red_yellow.png" gridsize="3 4" gridlayout=".....LDB...." rgb1="0 0 0"/>
+    <texture name="blue_orange_yellow" file="blue_orange_yellow.png" gridsize="3 4" gridlayout=".....RUB...." rgb1="0 0 0"/>
+    <texture name="green_orange_yellow" file="green_orange_yellow.png" gridsize="3 4" gridlayout=".....LUB...." rgb1="0 0 0"/>
     <material name="white" texture="white"/>
     <material name="yellow" texture="yellow"/>
     <material name="red" texture="red"/>
@@ -74,7 +74,7 @@
     <material name="green_red_yellow" texture="green_red_yellow"/>
     <material name="blue_orange_yellow" texture="blue_orange_yellow"/>
     <material name="green_orange_yellow" texture="green_orange_yellow"/>
-    <mesh name="cubelet" vertex="0.008075 0.0095 -0.008075 -0.008075 0.0095 -0.008075 0.008075 0.0095 0.008075 -0.008075 0.0095 0.008075 -0.0095 0.008075 -0.008075 -0.0095 -0.008075 -0.008075 -0.0095 0.008075 0.008075 -0.0095 -0.008075 0.008075 0.008075 -0.0095 -0.008075 0.008075 -0.0095 0.008075 -0.008075 -0.0095 -0.008075 -0.008075 -0.0095 0.008075 0.0095 0.008075 0.008075 0.0095 -0.008075 0.008075 0.0095 0.008075 -0.008075 0.0095 -0.008075 -0.008075 0.008075 0.008075 0.0095 -0.008075 0.008075 0.0095 0.008075 -0.008075 0.0095 -0.008075 -0.008075 0.0095 0.008075 -0.008075 -0.0095 -0.008075 -0.008075 -0.0095 0.008075 0.008075 -0.0095 -0.008075 0.008075 -0.0095"/>
+    <mesh name="cubelet" file="cubelet.obj"/>
   </asset>
   <worldbody>
     <light pos="0 0 1"/>

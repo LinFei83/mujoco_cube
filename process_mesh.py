@@ -14,9 +14,21 @@ mesh.apply_scale(0.001)
 mesh.apply_translation(-mesh.centroid)
 
 # 打印处理后的顶点坐标
-# 格式化输出每个顶点的x, y, z坐标，保留6位有效数字
+print("顶点坐标:")
+vertex_str = ""
 for vertex in mesh.vertices:
-    print(f"{vertex[0]:.6g} {vertex[1]:.6g} {vertex[2]:.6g}")
+    vertex_str += f"{vertex[0]:.6g} {vertex[1]:.6g} {vertex[2]:.6g} "
+print(vertex_str.strip())
+
+# 打印面信息（三角形面）
+print("\n面信息:")
+face_str = ""
+for face in mesh.faces:
+    face_str += f"{face[0]} {face[1]} {face[2]} "
+print(face_str.strip())
+
+print(f"\n顶点数量: {len(mesh.vertices)}")
+print(f"面数量: {len(mesh.faces)}")
 
 # 确认立方体尺寸是否为0.019米
 # 使用numpy的断言函数检查网格范围是否在三个维度上都等于0.019

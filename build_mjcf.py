@@ -31,32 +31,10 @@ def build() -> mjcf.RootElement:
     cube_mass = 0.0685  # 整个魔方的总质量（单位：千克）
     cubelet_dimension = 0.019  # 每个小方块的尺寸（单位：米）
     # 通过 `process_mesh.py` 脚本获取的小方块顶点坐标
-    cubelet_vertices = """
-        0.008075 0.0095 -0.008075
-        -0.008075 0.0095 -0.008075
-        0.008075 0.0095 0.008075
-        -0.008075 0.0095 0.008075
-        -0.0095 0.008075 -0.008075
-        -0.0095 -0.008075 -0.008075
-        -0.0095 0.008075 0.008075
-        -0.0095 -0.008075 0.008075
-        0.008075 -0.0095 -0.008075
-        0.008075 -0.0095 0.008075
-        -0.008075 -0.0095 -0.008075
-        -0.008075 -0.0095 0.008075
-        0.0095 0.008075 0.008075
-        0.0095 -0.008075 0.008075
-        0.0095 0.008075 -0.008075
-        0.0095 -0.008075 -0.008075
-        0.008075 0.008075 0.0095
-        -0.008075 0.008075 0.0095
-        0.008075 -0.008075 0.0095
-        -0.008075 -0.008075 0.0095
-        0.008075 -0.008075 -0.0095
-        -0.008075 -0.008075 -0.0095
-        0.008075 0.008075 -0.0095
-        -0.008075 0.008075 -0.0095
-    """
+    cubelet_vertices = """0.008075 0.0095 -0.008075 -0.008075 0.0095 -0.008075 0.008075 0.0095 0.008075 -0.008075 0.0095 0.008075 -0.0095 0.008075 -0.008075 -0.0095 -0.008075 -0.008075 -0.0095 0.008075 0.008075 -0.0095 -0.008075 0.008075 0.008075 -0.0095 -0.008075 0.008075 -0.0095 0.008075 -0.008075 -0.0095 -0.008075 -0.008075 -0.0095 0.008075 0.0095 0.008075 0.008075 0.0095 -0.008075 0.008075 0.0095 0.008075 -0.008075 0.0095 -0.008075 -0.008075 0.008075 0.008075 0.0095 -0.008075 0.008075 0.0095 0.008075 -0.008075 0.0095 -0.008075 -0.008075 0.0095 0.008075 -0.008075 -0.0095 -0.008075 -0.008075 -0.0095 0.008075 0.008075 -0.0095 -0.008075 0.008075 -0.0095"""
+    
+    # 通过 `process_mesh.py` 脚本获取的小方块面信息（三角形面的顶点索引）
+    cubelet_faces = """0 1 2 2 1 3 4 5 6 6 5 7 8 9 10 10 9 11 12 13 14 14 13 15 16 17 18 18 17 19 20 21 22 22 21 23 5 10 7 7 10 11 7 11 19 10 5 21 9 18 11 11 18 19 17 6 19 19 6 7 6 3 4 4 3 1 4 23 5 5 23 21 20 8 21 21 8 10 8 15 9 9 15 13 9 13 18 6 17 3 4 1 23 8 20 15 12 16 13 13 16 18 16 2 17 17 2 3 0 22 1 1 22 23 22 14 20 20 14 15 16 12 2 22 0 14 14 0 12 12 0 2"""
     axes = ("pX", "nX", "pY", "nY", "pZ", "nZ")  # 定义六个轴向：正X、负X、正Y、负Y、正Z、负Z
     # ================================ #
 
@@ -66,6 +44,9 @@ def build() -> mjcf.RootElement:
     root.compiler.autolimits = True  # 自动设置关节限制
     root.compiler.angle = "radian"  # 角度单位为弧度
     root.compiler.texturedir = "assets"  # 纹理文件目录
+    root.compiler.meshdir = "assets"  # 网格文件目录
+    # 为了更好地兼容 Isaac Sim，设置坐标系统
+    root.compiler.coordinate = "local"  # 使用本地坐标系统
     # ================================ #
 
     # ================================ #
@@ -120,8 +101,8 @@ def build() -> mjcf.RootElement:
     # ================================ #
     # 资源定义
     # ================================ #
-    # 添加小方块的网格资源
-    root.asset.add("mesh", name="cubelet", vertex=cubelet_vertices)
+    # 添加小方块的网格资源（使用外部 OBJ 文件以兼容 Isaac Sim）
+    root.asset.add("mesh", name="cubelet", file="cubelet.obj")
     # 添加天空盒纹理
     root.asset.add(
         "texture", type="skybox", builtin="gradient", height=512, width=512
@@ -275,9 +256,10 @@ def prettify_xml_string(xml_string: str) -> str:
     """美化和清理 XML 字符串。"""
     root = etree.XML(xml_string, etree.XMLParser(remove_blank_text=True))
 
-    # 确保 compiler 的 texturedir 属性正确设置
+    # 确保 compiler 的 texturedir 和 meshdir 属性正确设置
     compiler = root.find("compiler")
     compiler.set("texturedir", "assets")
+    compiler.set("meshdir", "assets")
 
     # 修正纹理文件路径
     pattern = r"^[a-zA-Z]+(_[a-zA-Z]+)*-\w+\.png"
@@ -288,9 +270,17 @@ def prettify_xml_string(xml_string: str) -> str:
             if match:
                 color = match.group(0).split("-")[0]
                 texture.set(attr, f"{color}.png")
-        # 移除自动生成的纹理名称
-        if "name" in texture.attrib:
+        # 只移除天空盒纹理的自动生成名称，保留其他纹理的名称以供材质引用
+        if "name" in texture.attrib and texture.get("type") == "skybox":
             texture.attrib.pop("name")
+
+    # 修正网格文件路径，移除自动生成的哈希值
+    mesh_pattern = r"^cubelet-[a-f0-9]+\.obj$"
+    meshes = root.findall(".//mesh")
+    for mesh in meshes:
+        for attr, file_name in mesh.attrib.items():
+            if re.match(mesh_pattern, file_name):
+                mesh.set(attr, "cubelet.obj")
 
     # 移除自动生成的名称
     for light in root.findall(".//light"):
